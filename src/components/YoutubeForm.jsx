@@ -1,5 +1,5 @@
 import React from 'react'
-import { Field, Form, Formik } from 'formik'
+import { Field, Form, Formik, ErrorMessage } from 'formik'
 import * as yup from "yup"
 
 const initialValues = {
@@ -22,8 +22,6 @@ const validationSchema = yup.object({
 
 const YoutubeForm = () => {
 
-  console.log("visited fields", formik.touched);
-
   return (
     <Formik
       initialValues={initialValues}
@@ -33,22 +31,15 @@ const YoutubeForm = () => {
         <Form>
           <div className='form-control'>
               <label htmlFor='name'>Name</label>
-              <Field 
-                type='text' 
-                id='name' 
-                name='name' 
-              />
-              {formik.touched.name && formik.errors.name ? <div className='error'>{formik.errors.name}</div> : null}
+              <Field type='text' id='name' name='name' />
+              <ErrorMessage name='name'/>
             </div>
 
             <div className='form-control'>
               <label htmlFor='name'>E-mail</label>
               <Field 
-                type='text' 
-                id='email' 
-                name='email' 
-              />
-              {formik.touched.email && formik.errors.email ? <div className='error'>{formik.errors.email}</div> : null}
+                type='text' id='email' name='email' />
+              <ErrorMessage name='email' />
             </div>
 
             <div className='form-control'>
@@ -58,7 +49,7 @@ const YoutubeForm = () => {
                 id='channel' 
                 name='channel'
               />
-              {formik.touched.channel && formik.errors.channel ? <div className='error'>{formik.errors.channel}</div> : null}
+              <ErrorMessage name='channel'/>
             </div>
 
             <button type='submit'>Submit</button>
