@@ -1,5 +1,5 @@
 import React from 'react'
-import { Field, Form, Formik, ErrorMessage } from 'formik'
+import { Field, Form, Formik, ErrorMessage, FieldArray, FastField } from 'formik'
 import * as yup from "yup"
 import TextError from './TextError';
 
@@ -8,7 +8,13 @@ const initialValues = {
     email: '',
     channel: '',
     comments: '',
-    address: ''
+    address: '',
+    social: {
+      facebook: '',
+      twitter: ''
+    },
+    phoneNumbers: ['', ''],
+    phNumbers: ['']
 };
 
 const onSubmit = values => {
@@ -30,6 +36,8 @@ const YoutubeForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      validateOnChange={false}
+      validateOnBlur={false}
     >
         <Form>
           <div className='form-control'>
@@ -67,11 +75,11 @@ const YoutubeForm = () => {
 
             <div  className='form-control'>
               <label htmlFor='address'>Address</label>
-              <Field name="address">
+              <FastField name="address">
                 {
                   (props) => {
                     const {field, form, meta} = props
-                    console.log('Render props', props);
+                    console.log('field render...');
                     return (
                     <div>
                       <input id='address' {...field}/>
@@ -80,7 +88,48 @@ const YoutubeForm = () => {
                     )
                   }
                 }
-              </Field>
+              </FastField>
+            </div>
+
+            <div className='form-control'>
+                <label htmlFor='facebook'>Facebook profile</label>
+                <Field type="text" id="facebook" name="social.facebook"/>
+            </div>
+
+            <div className='form-control'>
+                <label htmlFor='twitter'>twitter profile</label>
+                <Field type="text" id="twitter" name="social.twitter"/>
+            </div>
+
+            <div className='form-control'>
+                <label htmlFor='primaryPh'>Primary phone number</label>
+                <Field type="text" id="primaryPh" name="phoneNumbers[0]"/>
+            </div>
+
+            <div className='form-control'>
+                <label htmlFor='secondaryPh'>Secondary phone number</label>
+                <Field type="text" id="primaryPh" name="phoneNumbers[1]"/>
+            </div>
+
+            <div className='form-control'>
+                <label>List of phone numbers</label>
+                <FieldArray name='phNumbers'>
+                  {(fieldArrayProps) => {
+                    const {push, remove, form} = fieldArrayProps
+                    const {values} = form
+                    const {phNumbers} = values
+                    console.log('form errors', form.errors);
+                    return <div>
+                      {phNumbers.map((phNumber, index) => (
+                          <div key={index}>
+                            <Field name={`phNumber[${index}]`}/>
+                            <button type='button' onClick={() => remove(index)}> - </button>
+                            <button type='button' onClick={() => push('')}> + </button>
+                          </div>
+                      ))}
+                    </div>
+                  }}
+                </FieldArray>
             </div>
 
             <button type='submit'>Submit</button>
