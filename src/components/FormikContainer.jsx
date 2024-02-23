@@ -6,10 +6,10 @@ import FormikControl from './FormikControl';
 function FormikContainer() {
 
     const dropDownOptions = [
-        { key : 'Select an option', value: ''},
-        { key : 'Option 1', value: 'option1'},
-        { key : 'Option 2', value: 'option2'},
-        { key : 'Option 3', value: 'option3'},
+        { key : 'Select skill', value: ''},
+        { key : 'JavaScript', value: 'JavaScript'},
+        { key : 'Java', value: 'Java'},
+        { key : 'Python', value: 'Python'},
     ]
 
     const radioOptions = [
@@ -20,21 +20,28 @@ function FormikContainer() {
 
     const initialValues = {
         email: '',
+        password: '',
+        confirmPassword: '',
         description: '',
         selectOption: '',
-        radioOption: ''
+        radioOption: '',
+        birthDate: null
     };
 
     const validationSchema = yup.object({
         email: yup.string().required('Required'),
+        password: yup.string().required(),
+        confirmPassword: yup.string().required(),
         description: yup.string().required(),
         selectOption: yup.string().required(),
-        radioOption: yup.string().required()
+        radioOption: yup.string().required(),
+        birthDate: yup.date().required().nullable()
     });
 
     const onSubmit = values => console.log('Form data', values);
 
   return (
+    
     <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -47,6 +54,20 @@ function FormikContainer() {
                     type="email" 
                     label="Email" 
                     name="email" 
+                />
+
+                <FormikControl 
+                    control="input" 
+                    type="text" 
+                    label="Password" 
+                    name="password" 
+                />
+
+                <FormikControl 
+                    control="input" 
+                    type="text" 
+                    label="Confirm Password" 
+                    name="confirmPassword" 
                 />
 
                 <FormikControl 
@@ -69,6 +90,12 @@ function FormikContainer() {
                     options={radioOptions}
                 />
 
+                <FormikControl
+                    control= 'date'
+                    label= 'Date of Birth'
+                    name= 'birthDate'
+                />
+  
                 <button type="submit">Submit</button>
             </Form>
         )}
