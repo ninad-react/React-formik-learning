@@ -5,14 +5,23 @@ import FormikControl from './FormikControl';
 
 function FormikContainer() {
 
+    const dropDownOptions = [
+        { key : 'Select an option', value: ''},
+        { key : 'Option 1', value: 'option1'},
+        { key : 'Option 2', value: 'option2'},
+        { key : 'Option 3', value: 'option3'},
+    ]
+
     const initialValues = {
         email: '',
-        description: ''
+        description: '',
+        selectOption: ''
     };
 
     const validationSchema = yup.object({
         email: yup.string().required('Required'),
-        description: yup.string().required()
+        description: yup.string().required(),
+        selectOption: yup.string().required()
     });
 
     const onSubmit = values => console.log('Form data', values);
@@ -37,7 +46,14 @@ function FormikContainer() {
                     label= 'Description'
                     name= 'description'
                 />
-                
+
+                <FormikControl
+                    control= 'select'
+                    label = 'Select a topic'
+                    name = 'selectOption'
+                    options= {dropDownOptions}
+                />
+
                 <button type="submit">Submit</button>
             </Form>
         )}
