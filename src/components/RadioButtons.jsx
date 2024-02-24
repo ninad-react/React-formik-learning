@@ -7,12 +7,11 @@ function RadioButtons(props) {
     const {label, name, options, ...rest} = props;
 
   return (
-    <div className='form-control'>
+    <div className='form-control' style={{display:"flex", justifyContent:"space-around"}}>
         <label htmlFor={name}>Gender: </label>
         <Field name={name} {...rest}>
             {
                 ({field}) => {
-                    console.log('field', field);
                     return options.map( option => {
                         return (
                             <React.Fragment key={option.key}>

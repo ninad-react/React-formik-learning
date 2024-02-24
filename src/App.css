@@ -1,4 +1,4 @@
-.App {
+/* .App {
   display: flex;
   justify-content: center;
 }
@@ -30,8 +30,7 @@ select {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
-  /* margin-bottom: 20px; */
-}
+} 
 
 .form-control {
   margin-bottom: 20px;
@@ -39,4 +38,8 @@ select {
 
 .error {
   color: red;
+} */
+
+.btn {
+  margin: 0px 3px;
 }
